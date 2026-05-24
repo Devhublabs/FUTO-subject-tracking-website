@@ -386,8 +386,48 @@
     </main>
 
   </div>
+  <button class="fab" id="fab-upload" title="Upload Image" type="button">+</button>
 
-  <button class="fab" id="fab-upload" title="Upload Image">+</button>
+  <!-- Hidden file input — triggered by FAB or course Upload buttons -->
+  <input type="file" id="upload-file" accept="image/jpeg,image/png,image/webp" hidden>
+
+  <!-- Upload modal -->
+  <div class="modal-backdrop" id="upload-modal-backdrop" aria-hidden="true">
+    <div class="modal" id="upload-modal" role="dialog" aria-labelledby="upload-modal-title">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title" id="upload-modal-title">Upload page</h2>
+          <p class="card-subtitle" id="upload-modal-subtitle">Select a course and image</p>
+        </div>
+        <button type="button" class="modal-close" id="upload-modal-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body stack">
+        <div class="input-wrap" id="upload-course-wrap">
+          <label class="input-label" for="upload-course-select">Course</label>
+          <select class="input" id="upload-course-select" aria-label="Course"></select>
+        </div>
+        <div class="input-wrap">
+          <label class="input-label" for="upload-page-number">Page number</label>
+          <input class="input" type="number" id="upload-page-number" min="1" placeholder="e.g. 101">
+        </div>
+        <div id="upload-preview-wrap" class="hidden">
+          <img id="upload-preview" alt="Selected page preview" style="max-width:100%;border-radius:var(--radius-md);margin-top:8px;">
+        </div>
+        <button type="button" class="btn btn-ghost btn-full" id="upload-pick-file">Choose image</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" id="upload-cancel">Cancel</button>
+        <button type="button" class="btn btn-primary" id="upload-submit" disabled>Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="loader-overlay" id="upload-loader" aria-hidden="true">
+    <div class="loader-ring"></div>
+    <p class="loader-text">Uploading…</p>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
 
   <script src="../js/dashboard.js"></script>
 </body>

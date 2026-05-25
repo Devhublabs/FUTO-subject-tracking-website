@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="FUTO Data Collection — Upload textbook pages and earn money."
+    />
+    <title>FUTO Data Collection — Sign In</title>
+
+    <!-- ═══ Google Fonts ═══ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ═══ CSS — always in this order ═══ -->
+    <link rel="stylesheet" href="../CSS/reset.css" />
+    <link rel="stylesheet" href="../CSS/variables.css" />
+    <link rel="stylesheet" href="../CSS/components.css" />
+    <link rel="stylesheet" href="../CSS/layout.css" />
+    <link rel="stylesheet" href="../CSS/responsive.css" />
+  </head>
+
+  <body>
+    <!-- ═══════════════════════════════════
+       BACKGROUND BLOB (injected by ui.js
+       but also here as fallback)
+  ═══════════════════════════════════ -->
+    <div class="bg-blob-2"></div>
+
+    <!-- ═══════════════════════════════════
+       AUTH PAGE WRAPPER
+  ═══════════════════════════════════ -->
+    <main class="auth-page" role="main">
+      <!-- ── Glassmorphic Auth Card ── -->
+      <div class="auth-card">
+        <!-- Logo & Branding -->
+        <div class="auth-logo-wrap">
+          <div
+            class="auth-logo"
+            role="img"
+            aria-label="FUTO Data Collection logo"
+          >
+            📚
+          </div>
+          <h1 class="auth-title">
+            FUTO<span style="color: var(--color-primary)">Data</span>
+          </h1>
+          <p class="auth-subtitle">
+            <span
+              class="font-accent"
+              style="
+                font-family: var(--font-accent);
+                font-size: 1.2rem;
+                color: var(--color-primary);
+              "
+            >
+              Upload. Earn. Grow.
+            </span>
+          </p>
+        </div>
+
+        <!-- Tab Switcher — Skeuomorphic -->
+        <div class="auth-tabs" role="tablist" aria-label="Authentication tabs">
+          <button
+            id="tab-login"
+            class="auth-tab active"
+            role="tab"
+            aria-selected="true"
+            aria-controls="login-form"
+          >
+            Log In
+          </button>
+          <button
+            id="tab-register"
+            class="auth-tab"
+            role="tab"
+            aria-selected="false"
+            aria-controls="register-form"
+          >
+            Register
+          </button>
+        </div>
+
+        <!-- ══════════════════════════════
+           LOGIN FORM
+      ══════════════════════════════ -->
+        <form
+          id="login-form"
+          class="auth-form"
+          role="tabpanel"
+          aria-labelledby="tab-login"
+          novalidate
+        >
+          <!-- Email -->
+          <div class="input-wrap" id="login-email-wrap">
+            <label class="input-label" for="login-email">
+              Email Address <span class="required">*</span>
+            </label>
+            <div class="input-icon-wrap">
+              <span class="input-icon" aria-hidden="true">✉️</span>
+              <input
+                type="email"
+                id="login-email"
+                name="email"
+                class="input"
+                placeholder="you@example.com"
+                autocomplete="email"
+                inputmode="email"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="input-wrap" id="login-password-wrap">
+            <label class="input-label" for="login-password">
+              Password <span class="required">*</span>
+            </label>
+            <div class="input-action-wrap">
+              <span
+                class="input-icon"
+                style="
+                  position: absolute;
+                  left: 16px;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  color: var(--color-muted);
+                  pointer-events: none;
+                "
+                >🔒</span
+              >
+              <input
+                type="password"
+                id="login-password"
+                name="password"
+                class="input"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+                style="padding-left: 44px"
+              />
+              <button
+                type="button"
+                id="toggle-login-pw"
+                class="input-action-btn"
+                aria-label="Show password"
+              >
+                👁️
+              </button>
+            </div>
+          </div>
+
+          <!-- Forgot Password -->
+          <div style="text-align: right; margin-top: -8px">
+            <a
+              href="#"
+              style="
+                font-family: var(--font-body);
+                font-size: var(--text-xs);
+                color: var(--color-primary);
+              "
+              id="forgot-password-link"
+            >
+              Forgot password?
+            </a>
+          </div>
+
+          <!-- Submit -->
+          <button
+            type="button"
+            id="login-submit"
+            class="btn btn-primary btn-full btn-lg"
+            style="margin-top: var(--space-2)"
+          >
+            Log In
+          </button>
+
+          <!-- Switch to Register -->
+          <p class="auth-footer-text">
+            Don't have an account?
+            <a href="#" id="link-to-register">Create one free</a>
+          </p>
+        </form>
+
+        <!-- ══════════════════════════════
+           REGISTER FORM (hidden by default)
+      ══════════════════════════════ -->
+        <form
+          id="register-form"
+          class="auth-form hidden"
+          role="tabpanel"
+          aria-labelledby="tab-register"
+          novalidate
+        >
+          <!-- Full Name -->
+          <div class="input-wrap" id="reg-name-wrap">
+            <label class="input-label" for="reg-name">
+              Full Name <span class="required">*</span>
+            </label>
+            <div class="input-icon-wrap">
+              <span class="input-icon" aria-hidden="true">👤</span>
+              <input
+                type="text"
+                id="reg-name"
+                name="name"
+                class="input"
+                placeholder="e.g. John Doe"
+                autocomplete="name"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="input-wrap" id="reg-email-wrap">
+            <label class="input-label" for="reg-email">
+              Email Address <span class="required">*</span>
+            </label>
+            <div class="input-icon-wrap">
+              <span class="input-icon" aria-hidden="true">✉️</span>
+              <input
+                type="email"
+                id="reg-email"
+                name="email"
+                class="input"
+                placeholder="you@example.com"
+                autocomplete="email"
+                inputmode="email"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Phone (optional) -->
+          <div class="input-wrap" id="reg-phone-wrap">
+            <label class="input-label" for="reg-phone">
+              Phone Number
+              <span style="color: var(--color-muted); font-weight: 400"
+                >(optional)</span
+              >
+            </label>
+            <div class="input-icon-wrap">
+              <span class="input-icon" aria-hidden="true">📱</span>
+              <input
+                type="tel"
+                id="reg-phone"
+                name="phone"
+                class="input"
+                placeholder="08012345678"
+                autocomplete="tel"
+                inputmode="tel"
+              />
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="input-wrap" id="reg-password-wrap">
+            <label class="input-label" for="reg-password">
+              Password <span class="required">*</span>
+            </label>
+            <div class="input-action-wrap">
+              <span
+                class="input-icon"
+                style="
+                  position: absolute;
+                  left: 16px;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  color: var(--color-muted);
+                  pointer-events: none;
+                "
+                >🔒</span
+              >
+              <input
+                type="password"
+                id="reg-password"
+                name="password"
+                class="input"
+                placeholder="Min. 8 characters + 1 number"
+                autocomplete="new-password"
+                required
+                style="padding-left: 44px"
+              />
+              <button
+                type="button"
+                id="toggle-reg-pw"
+                class="input-action-btn"
+                aria-label="Show password"
+              >
+                👁️
+              </button>
+            </div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="input-wrap" id="reg-confirm-wrap">
+            <label class="input-label" for="reg-confirm">
+              Confirm Password <span class="required">*</span>
+            </label>
+            <div class="input-action-wrap">
+              <span
+                class="input-icon"
+                style="
+                  position: absolute;
+                  left: 16px;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  color: var(--color-muted);
+                  pointer-events: none;
+                "
+                >🔒</span
+              >
+              <input
+                type="password"
+                id="reg-confirm"
+                name="confirm"
+                class="input"
+                placeholder="Re-enter your password"
+                autocomplete="new-password"
+                required
+                style="padding-left: 44px"
+              />
+              <button
+                type="button"
+                id="toggle-reg-confirm"
+                class="input-action-btn"
+                aria-label="Show confirm password"
+              >
+                👁️
+              </button>
+            </div>
+          </div>
+
+          <!-- Terms note -->
+          <p
+            style="
+              font-family: var(--font-body);
+              font-size: var(--text-xs);
+              color: var(--color-muted);
+              text-align: center;
+              line-height: 1.6;
+            "
+          >
+            By creating an account you agree to our
+            <a href="#" style="color: var(--color-primary)">Terms of Service</a>
+            and
+            <a href="#" style="color: var(--color-primary)">Privacy Policy</a>.
+          </p>
+
+          <!-- Submit -->
+          <button
+            type="button"
+            id="register-submit"
+            class="btn btn-primary btn-full btn-lg"
+          >
+            Create Account
+          </button>
+
+          <!-- Switch to Login -->
+          <p class="auth-footer-text">
+            Already have an account?
+            <a href="#" id="link-to-login">Log in here</a>
+          </p>
+        </form>
+      </div>
+      <!-- /auth-card -->
+    </main>
+    <!-- /auth-page -->
+
+    <!-- ═══════════════════════════════════
+       SCRIPTS — always in this order
+  ═══════════════════════════════════ -->
+    <script src="../JavaScript/state.js"></script>
+    <script src="../JavaScript/api.js"></script>
+    <script src="../JavaScript/ui.js"></script>
+    <script src="../JavaScript/auth.js"></script>
+  </body>
+</html>

@@ -1,0 +1,656 @@
+/* ============================================================
+   RESPONSIVE.CSS — Breakpoint System
+   FUTO Data Collection Platform
+   ============================================================
+   Depends on: reset.css, variables.css, components.css, layout.css
+
+   BREAKPOINTS:
+   Mobile:  < 768px
+   Tablet:  768px – 1024px
+   Desktop: > 1024px
+
+   APPROACH: Desktop-first overrides scaling DOWN
+   (base styles are desktop in layout.css,
+   this file overrides for smaller screens)
+
+   TABLE OF CONTENTS:
+   01. Tablet (max-width: 1024px)
+   02. Mobile (max-width: 767px)
+   03. Mobile Bottom-Sheet Modals
+   04. Mobile Navigation
+   05. Touch & Accessibility Overrides
+   06. Landscape Mobile
+   07. Large Desktop (min-width: 1400px)
+   ============================================================ */
+
+
+/* ════════════════════════════════════════
+   01. TABLET — max-width: 1024px
+════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+
+  /* Layout */
+  .container {
+    padding: 0 var(--space-5);
+  }
+
+  /* Hide sidebar, show hamburger */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: var(--z-modal);
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-base);
+  }
+
+  .sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  /* App wrapper — no sidebar in layout */
+  .app-wrapper.has-sidebar {
+    flex-direction: column;
+  }
+
+  /* Main content takes full width */
+  .main {
+    padding: var(--space-6) var(--space-5);
+  }
+
+  /* Grids — 2 columns on tablet */
+  .books-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Split layout — stack vertically */
+  .split-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  /* Auth card — slightly narrower padding */
+  .auth-card {
+    padding: var(--space-8) var(--space-6);
+  }
+
+  /* Modal — wider on tablet */
+  .modal {
+    max-width: 520px;
+  }
+
+  /* Page title — slightly smaller */
+  .page-title {
+    font-size: var(--text-2xl);
+  }
+
+}
+
+
+/* ════════════════════════════════════════
+   02. MOBILE — max-width: 767px
+════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+
+  /* ── Base ── */
+  html {
+    font-size: 15px;
+  }
+
+  .container,
+  .container-sm {
+    padding: 0 var(--space-4);
+  }
+
+  /* ── Header ── */
+  .header {
+    height: 56px;
+  }
+
+  .header-inner {
+    padding: 0 var(--space-4);
+  }
+
+  .header-nav {
+    display: none; /* replaced by sidebar on mobile */
+  }
+
+  .header-wordmark {
+    font-size: var(--text-base);
+  }
+
+  .header-logo {
+    width: 30px;
+    height: 30px;
+    font-size: var(--text-base);
+  }
+
+  /* ── Main ── */
+  .main {
+    padding: var(--space-5) var(--space-4);
+    padding-bottom: calc(var(--fab-size) + var(--space-10));
+    /* Extra bottom padding so FAB doesn't cover content */
+  }
+
+  /* ── Page Header ── */
+  .page-title {
+    font-size: var(--text-xl);
+  }
+
+  .page-tagline {
+    font-size: var(--text-lg);
+  }
+
+  .page-desc {
+    font-size: var(--text-sm);
+  }
+
+  .page-header {
+    margin-bottom: var(--space-5);
+  }
+
+  /* ── Grids — single column on mobile ── */
+  .books-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .split-layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* ── Cards ── */
+  .card {
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+  }
+
+  .card-lg {
+    padding: var(--space-5);
+  }
+
+  /* ── Stats — 2-up on mobile ── */
+  .stat-item {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .stat-value {
+    font-size: var(--text-xl);
+  }
+
+  /* ── Buttons ── */
+  .btn {
+    height: var(--btn-height-md);
+    font-size: var(--text-sm);
+  }
+
+  .btn-lg {
+    height: var(--btn-height-md);
+    padding: 0 var(--space-6);
+    font-size: var(--text-sm);
+  }
+
+  /* Full-width buttons inside cards on mobile */
+  .book-card-actions {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .book-card-actions .btn {
+    width: 100%;
+  }
+
+  /* FAB */
+  .fab {
+    bottom: var(--space-5);
+    right: var(--space-4);
+    width: 56px;
+    height: 56px;
+    font-size: var(--text-lg);
+  }
+
+  /* ── Inputs ── */
+  .input {
+    height: 48px;
+    font-size: var(--text-base);
+    border-radius: var(--radius-md);
+  }
+
+  .input-label {
+    font-size: var(--text-sm);
+  }
+
+  /* ── Auth page ── */
+  .auth-page {
+    align-items: flex-start;
+    padding: var(--space-5) var(--space-4);
+    padding-top: var(--space-10);
+  }
+
+  .auth-card {
+    border-radius: var(--radius-xl);
+    padding: var(--space-6) var(--space-5);
+  }
+
+  .auth-logo-wrap {
+    margin-bottom: var(--space-6);
+  }
+
+  .auth-logo {
+    width: 48px;
+    height: 48px;
+    font-size: var(--text-xl);
+  }
+
+  .auth-title {
+    font-size: var(--text-xl);
+  }
+
+  .auth-form {
+    gap: var(--space-3);
+  }
+
+  /* ── Book cards ── */
+  .book-card {
+    padding: var(--space-4);
+  }
+
+  .book-card-header {
+    gap: var(--space-2);
+  }
+
+  .book-icon {
+    width: 38px;
+    height: 46px;
+    font-size: var(--text-base);
+  }
+
+  /* ── Progress ── */
+  .progress-track {
+    height: 8px;
+  }
+
+  /* ── Toasts — full width on mobile ── */
+  .toast-container {
+    top: auto;
+    bottom: calc(var(--fab-size) + var(--space-8));
+    right: var(--space-4);
+    left: var(--space-4);
+  }
+
+  .toast {
+    min-width: unset;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  /* ── Section titles ── */
+  .section-title {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-4);
+  }
+
+  /* ── Row — wrap on mobile ── */
+  .row {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .row-between {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  /* ── Avatar ── */
+  .avatar-lg {
+    width: 52px;
+    height: 52px;
+    font-size: var(--text-lg);
+  }
+
+  /* ── Tier badge ── */
+  .tier-badge {
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+
+  /* ── Empty state ── */
+  .empty-state {
+    padding: var(--space-10) var(--space-5);
+  }
+
+  /* ── Stagger animation delay reduced on mobile ── */
+  .stagger-children > *:nth-child(1) { animation-delay: 0.03s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.06s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.09s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.12s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.15s; }
+  .stagger-children > *:nth-child(6) { animation-delay: 0.18s; }
+
+}
+
+
+/* ════════════════════════════════════════
+   03. MOBILE BOTTOM-SHEET MODALS
+   On mobile, modals slide up from bottom
+   instead of appearing centered
+════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+
+  .modal-backdrop {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal {
+    width: 100%;
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    padding: var(--space-6) var(--space-5);
+
+    /* Slide up from bottom */
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .modal-backdrop.active .modal {
+    transform: translateY(0);
+  }
+
+  /* Drag handle indicator */
+  .modal::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-full);
+    margin: 0 auto var(--space-5);
+  }
+
+  .modal-title {
+    font-size: var(--text-lg);
+  }
+
+  .modal-footer {
+    flex-direction: column-reverse;
+    gap: var(--space-2);
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+  }
+
+  /* Step dots — larger touch targets */
+  .step-dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .step-dot.active {
+    width: 28px;
+  }
+
+}
+
+
+/* ════════════════════════════════════════
+   04. MOBILE NAVIGATION SIDEBAR
+════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+
+  .sidebar {
+    width: 280px;
+  }
+
+  .sidebar-link {
+    padding: var(--space-3) var(--space-4);
+    /* Larger touch targets */
+    min-height: var(--touch-target);
+  }
+
+  .sidebar-footer {
+    padding-bottom: var(--space-8);
+    /* Padding for home indicator on iOS */
+  }
+
+}
+
+
+/* ════════════════════════════════════════
+   05. TOUCH & ACCESSIBILITY OVERRIDES
+════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+
+  /* Enforce minimum touch targets on all interactive elements */
+  .btn,
+  .nav-link,
+  .sidebar-link,
+  .auth-tab,
+  .toggle-wrap,
+  .input,
+  .modal-close {
+    min-height: var(--touch-target);
+  }
+
+  /* Tap highlight — remove default on iOS */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Active state feedback for touch */
+  .btn:active,
+  .card-clickable:active,
+  .book-card:active,
+  .sidebar-link:active,
+  .nav-link:active {
+    opacity: 0.85;
+  }
+
+  /* Prevent text size adjust on rotate */
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* Smoother scrolling on iOS */
+  .main,
+  .modal,
+  .sidebar {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* Input zoom prevention on iOS (font-size >= 16px prevents zoom) */
+  .input,
+  .textarea,
+  select {
+    font-size: 16px !important;
+  }
+
+}
+
+
+/* ════════════════════════════════════════
+   06. LANDSCAPE MOBILE
+   (short viewport, wide screen)
+════════════════════════════════════════ */
+
+@media (max-width: 767px) and (orientation: landscape) {
+
+  .auth-page {
+    align-items: center;
+    padding: var(--space-4);
+  }
+
+  .auth-card {
+    padding: var(--space-4) var(--space-5);
+    max-height: 95vh;
+    overflow-y: auto;
+  }
+
+  .auth-logo-wrap {
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .auth-logo {
+    margin-bottom: 0;
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Bottom-sheet modals become centered in landscape */
+  .modal-backdrop {
+    align-items: center;
+    padding: var(--space-4);
+  }
+
+  .modal {
+    border-radius: var(--radius-xl);
+    max-height: 88vh;
+    transform: translateY(20px) scale(0.97);
+  }
+
+  .modal-backdrop.active .modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .modal::before {
+    display: none;
+  }
+
+  /* Stats — 3 columns even in landscape mobile */
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+
+
+/* ════════════════════════════════════════
+   07. LARGE DESKTOP — min-width: 1400px
+════════════════════════════════════════ */
+
+@media (min-width: 1400px) {
+
+  .container {
+    padding: 0 var(--space-8);
+  }
+
+  .books-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+
+  .stats-grid {
+    gap: var(--space-5);
+  }
+
+  .main {
+    padding: var(--space-10) var(--space-8);
+  }
+
+  .page-title {
+    font-size: var(--text-4xl);
+  }
+
+  .card {
+    padding: var(--space-8);
+  }
+
+  .modal {
+    max-width: 540px;
+  }
+
+}
+
+
+/* ════════════════════════════════════════
+   RESPONSIVE UTILITY HELPERS
+════════════════════════════════════════ */
+
+/* Show/hide at breakpoints */
+.hide-mobile  { display: block; }
+.show-mobile  { display: none;  }
+.hide-tablet  { display: block; }
+.show-tablet  { display: none;  }
+
+@media (max-width: 767px) {
+  .hide-mobile { display: none  !important; }
+  .show-mobile { display: block !important; }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .hide-tablet { display: none  !important; }
+  .show-tablet { display: block !important; }
+}
+
+/* Flex visibility helpers */
+.hide-mobile-flex { display: flex; }
+@media (max-width: 767px) {
+  .hide-mobile-flex { display: none !important; }
+}
+
+/* Text alignment per breakpoint */
+@media (max-width: 767px) {
+  .mobile-text-center { text-align: center; }
+  .mobile-text-left   { text-align: left;   }
+}
+
+/* Full width on mobile */
+@media (max-width: 767px) {
+  .mobile-full {
+    width: 100% !important;
+  }
+}

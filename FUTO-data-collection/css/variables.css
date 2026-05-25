@@ -1,244 +1,135 @@
-/* ============================================================
-   VARIABLES.CSS — Design Token System
-   FUTO Data Collection Platform
-   ============================================================
-   Import order in every HTML file:
-   1. Google Fonts (in <head>)
-   2. reset.css
-   3. variables.css
-   4. components.css
-   5. layout.css
-   6. responsive.css
-   7. [page-specific stylesheet if needed]
-   ============================================================ */
-
-/* ── GOOGLE FONTS
-   Add this <link> in the <head> of every HTML page:
-
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-── */
-
 :root {
+  --bg-base: #0d203e;
+  --bg-overlay: #1a3b53;
+  --bg-deep: #080f1e;
+  --bg-mid: #152d55;
 
-  /* ════════════════════════════════════════
-     COLOUR PALETTE
-  ════════════════════════════════════════ */
+  --color-primary: #10b981;
+  --color-primary-dark: #0a8f65;
+  --color-primary-lite: #13cf97;
+  --color-primary-glow: rgba(16, 185, 129, 0.2);
 
-  /* Core backgrounds */
-  --bg-base:            #0D203E;   /* Deep Navy — root page background     */
-  --bg-overlay:         #1A3B53;   /* Teal Blue — gradient blend layer      */
-  --bg-deep:            #080F1E;   /* Deeper Navy — shadows, scrollbar      */
-  --bg-mid:             #152D55;   /* Mid Navy — neomorphism light edge     */
+  --color-danger: #dc2626;
+  --color-danger-dark: #b91c1c;
+  --color-danger-lite: #ef4444;
+  --color-danger-glow: rgba(220, 38, 38, 0.2);
 
-  /* Semantic action colours */
-  --color-primary:      #10B981;   /* Green  — actions, success, pass       */
-  --color-primary-dark: #0A8F65;   /* Green  — button bottom gradient       */
-  --color-primary-lite: #13CF97;   /* Green  — button top gradient / hover  */
-  --color-primary-glow: rgba(16, 185, 129, 0.20);
+  --color-warning: #f59e0b;
+  --color-warning-dark: #b45309;
+  --color-warning-lite: #fbbf24;
+  --color-warning-glow: rgba(245, 158, 11, 0.2);
 
-  --color-danger:       #DC2626;   /* Red    — errors, failed checks        */
-  --color-danger-dark:  #B91C1C;   /* Red    — button bottom gradient       */
-  --color-danger-lite:  #EF4444;   /* Red    — button top gradient          */
-  --color-danger-glow:  rgba(220, 38, 38, 0.20);
-
-  --color-warning:      #F59E0B;   /* Amber  — warnings, duplicates         */
-  --color-warning-dark: #B45309;   /* Amber  — button bottom gradient       */
-  --color-warning-lite: #FBBF24;   /* Amber  — button top gradient          */
-  --color-warning-glow: rgba(245, 158, 11, 0.20);
-
-  --color-info:         #3B82F6;   /* Blue   — info, tips, tier details     */
-  --color-info-dark:    #1D4ED8;   /* Blue   — button bottom gradient       */
-  --color-info-lite:    #60A5FA;   /* Blue   — button top gradient          */
-  --color-info-glow:    rgba(59, 130, 246, 0.20);
+  --color-info: #3b82f6;
+  --color-info-dark: #1d4ed8;
+  --color-info-lite: #60a5fa;
+  --color-info-glow: rgba(59, 130, 246, 0.2);
 
   /* Text */
-  --color-text:         #F1F5F9;   /* Primary text on dark background       */
-  --color-text-dim:     #CBD5E1;   /* Secondary / supporting text           */
-  --color-muted:        #94A3B8;   /* Placeholder, disabled, subtle labels  */
-  --color-inverse:      #0D203E;   /* Text on light/primary-coloured bg     */
+  --color-text: #f1f5f9;
+  --color-text-dim: #cbd5e1;
+  --color-muted: #94a3b8;
+  --color-inverse: #0d203e;
 
+  --font-heading: "Montserrat", sans-serif;
+  --font-body: "Poppins", sans-serif;
+  --font-accent: "Great Vibes", cursive;
 
-  /* ════════════════════════════════════════
-     TYPOGRAPHY
-  ════════════════════════════════════════ */
+  --fw-heading: 800;
+  --fw-subhead: 700;
+  --fw-semibold: 600;
+  --fw-medium: 500;
+  --fw-regular: 400;
 
-  --font-heading:  'Montserrat', sans-serif;   /* H1–H3, section titles     */
-  --font-body:     'Poppins', sans-serif;      /* All body, labels, inputs  */
-  --font-accent:   'Great Vibes', cursive;     /* Decorative moments ONLY   */
+  --ls-heading: 1px;
+  --ls-caps: 2px;
 
-  --fw-heading:    800;
-  --fw-subhead:    700;
-  --fw-semibold:   600;
-  --fw-medium:     500;
-  --fw-regular:    400;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.125rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 3rem;
 
-  --ls-heading:    1px;     /* letter-spacing for headings                  */
-  --ls-caps:       2px;     /* letter-spacing for ALL CAPS labels           */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
 
-  /* Type scale */
-  --text-xs:    0.75rem;    /* 12px */
-  --text-sm:    0.875rem;   /* 14px */
-  --text-base:  1rem;       /* 16px */
-  --text-md:    1.125rem;   /* 18px */
-  --text-lg:    1.25rem;    /* 20px */
-  --text-xl:    1.5rem;     /* 24px */
-  --text-2xl:   1.875rem;   /* 30px */
-  --text-3xl:   2.25rem;    /* 36px */
-  --text-4xl:   3rem;       /* 48px */
-
-
-  /* ════════════════════════════════════════
-     SPACING SCALE
-  ════════════════════════════════════════ */
-
-  --space-1:   4px;
-  --space-2:   8px;
-  --space-3:   12px;
-  --space-4:   16px;
-  --space-5:   20px;
-  --space-6:   24px;
-  --space-8:   32px;
-  --space-10:  40px;
-  --space-12:  48px;
-  --space-16:  64px;
-  --space-20:  80px;
-
-
-  /* ════════════════════════════════════════
-     BORDER RADIUS
-  ════════════════════════════════════════ */
-
-  --radius-xs:   4px;
-  --radius-sm:   8px;
-  --radius-md:   14px;
-  --radius-lg:   20px;
-  --radius-xl:   28px;
-  --radius-2xl:  36px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-2xl: 36px;
   --radius-full: 9999px;
 
+  --neo-shadow: 6px 6px 16px var(--bg-deep), -4px -4px 12px var(--bg-mid);
 
-  /* ════════════════════════════════════════
-     NEOMORPHISM
-     — Cards, containers, input fields
-     Rule: ONLY used on --bg-base (#0D203E) backgrounds
-  ════════════════════════════════════════ */
-
-  /* Raised surface (default card feel) */
-  --neo-shadow:
-    6px 6px 16px var(--bg-deep),
-   -4px -4px 12px var(--bg-mid);
-
-  /* Pressed / inset surface (active inputs, pressed states) */
   --neo-inset:
-    inset 4px 4px 10px var(--bg-deep),
-    inset -3px -3px 8px var(--bg-mid);
+    inset 4px 4px 10px var(--bg-deep), inset -3px -3px 8px var(--bg-mid);
 
-  /* Subtle raised (small elements, badges) */
-  --neo-shadow-sm:
-    3px 3px 8px var(--bg-deep),
-   -2px -2px 6px var(--bg-mid);
+  --neo-shadow-sm: 3px 3px 8px var(--bg-deep), -2px -2px 6px var(--bg-mid);
 
-  /* Focus ring addition for neo inputs */
   --neo-focus:
-    inset 4px 4px 10px var(--bg-deep),
-    inset -3px -3px 8px var(--bg-mid),
+    inset 4px 4px 10px var(--bg-deep), inset -3px -3px 8px var(--bg-mid),
     0 0 0 2px var(--color-primary);
 
+  --glass-bg: rgba(26, 59, 83, 0.35);
+  --glass-bg-heavy: rgba(13, 32, 62, 0.6);
+  --glass-bg-light: rgba(26, 59, 83, 0.18);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-strong: rgba(255, 255, 255, 0.15);
+  --glass-blur: blur(16px);
+  --glass-blur-heavy: blur(24px);
+  --glass-blur-light: blur(8px);
 
-  /* ════════════════════════════════════════
-     GLASSMORPHISM
-     — Modals, headers, side panels, overlays
-     Rule: Must sit over the gradient background to be visible
-  ════════════════════════════════════════ */
-
-  --glass-bg:           rgba(26, 59, 83, 0.35);
-  --glass-bg-heavy:     rgba(13, 32, 62, 0.60);   /* more opaque panels     */
-  --glass-bg-light:     rgba(26, 59, 83, 0.18);   /* subtle overlays        */
-  --glass-border:       rgba(255, 255, 255, 0.08);
-  --glass-border-strong:rgba(255, 255, 255, 0.15);
-  --glass-blur:         blur(16px);
-  --glass-blur-heavy:   blur(24px);
-  --glass-blur-light:   blur(8px);
-
-
-  /* ════════════════════════════════════════
-     SKEUOMORPHISM
-     — Buttons, toggles, sliders
-     Rule: Always use gradient top→bottom + layered box-shadow
-  ════════════════════════════════════════ */
-
-  /* Shared skeuomorphic shadow recipe */
   --skeu-shadow:
-    0 5px 10px rgba(0, 0, 0, 0.45),
-    0 1px 0   rgba(255, 255, 255, 0.15) inset,
-    0 -1px 0  rgba(0, 0, 0, 0.35) inset;
+    0 5px 10px rgba(0, 0, 0, 0.45), 0 1px 0 rgba(255, 255, 255, 0.15) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.35) inset;
 
   --skeu-shadow-pressed:
-    0 2px 4px  rgba(0, 0, 0, 0.50),
-    0 1px 0    rgba(255, 255, 255, 0.08) inset,
-    0 -1px 0   rgba(0, 0, 0, 0.40) inset;
+    0 2px 4px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.4) inset;
 
   --skeu-shadow-sm:
-    0 3px 6px  rgba(0, 0, 0, 0.40),
-    0 1px 0    rgba(255, 255, 255, 0.12) inset,
-    0 -1px 0   rgba(0, 0, 0, 0.30) inset;
+    0 3px 6px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.12) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.3) inset;
 
+  --transition-fast: all 0.15s ease;
+  --transition-base: all 0.25s ease;
+  --transition-slow: all 0.4s ease;
+  --transition-bounce: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* ════════════════════════════════════════
-     TRANSITIONS & ANIMATION
-  ════════════════════════════════════════ */
-
-  --transition-fast:    all 0.15s ease;
-  --transition-base:    all 0.25s ease;
-  --transition-slow:    all 0.40s ease;
-  --transition-bounce:  all 0.30s cubic-bezier(0.34, 1.56, 0.64, 1);
-
-
-  /* ════════════════════════════════════════
-     Z-INDEX SCALE
-  ════════════════════════════════════════ */
-
-  --z-base:     1;
-  --z-raised:   10;
+  --z-base: 1;
+  --z-raised: 10;
   --z-dropdown: 100;
-  --z-sticky:   200;
-  --z-modal:    500;
-  --z-toast:    900;
-  --z-top:      9999;
+  --z-sticky: 200;
+  --z-modal: 500;
+  --z-toast: 900;
+  --z-top: 9999;
 
+  --btn-height-sm: 36px;
+  --btn-height-md: 46px;
+  --btn-height-lg: 54px;
 
-  /* ════════════════════════════════════════
-     COMPONENT SIZES
-  ════════════════════════════════════════ */
-
-  --btn-height-sm:   36px;
-  --btn-height-md:   46px;
-  --btn-height-lg:   54px;
-
-  --input-height:    50px;
+  --input-height: 50px;
   --input-height-sm: 40px;
 
-  --fab-size:        60px;      /* Floating Action Button                  */
-  --touch-target:    44px;      /* Minimum accessible touch target         */
+  --fab-size: 60px;
+  --touch-target: 44px;
 
-  --header-height:   64px;
-  --sidebar-width:   260px;
-  --content-max-w:   480px;     /* Max width for single-column content     */
-  --dashboard-max-w: 1200px;    /* Max width for dashboard layout          */
-
-}
-
-
-/* ════════════════════════════════════════
-   DARK THEME UTILITY OVERRIDES
-   (all defaults are already dark — this
-   section is reserved for any future
-   light-mode toggle if needed)
-════════════════════════════════════════ */
-
-/* Placeholder — do not delete */
-[data-theme="light"] {
-  /* Future light mode overrides go here */
+  --header-height: 64px;
+  --sidebar-width: 260px;
+  --content-max-w: 480px;
+  --dashboard-max-w: 1200px;
 }

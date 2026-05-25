@@ -101,7 +101,7 @@ async function handleLogin() {
   if (data) setUser(data);
 
   UI.toast.success("Welcome back! Redirecting...");
-  setTimeout(() => { window.location.href = "pages/dashboard.html"; }, 800);
+  setTimeout(() => { window.location.href = routeTo("dashboard"); }, 800);
 }
 
 
@@ -177,10 +177,10 @@ async function handleRegister() {
     return;
   }
 
-  if (data) setUser(data);
+  if (data) setUser({ ...data, name });
 
   UI.toast.success("Account created! Taking you to your dashboard...");
-  setTimeout(() => { window.location.href = "pages/dashboard.html"; }, 800);
+  setTimeout(() => { window.location.href = routeTo("dashboard"); }, 800);
 }
 
 
@@ -192,7 +192,7 @@ async function handleLogout() {
   apiLogout().catch(() => {});
   if (typeof resetState === "function") resetState();
   UI.toast.info("You have been logged out.");
-  setTimeout(() => { window.location.href = "/index.html"; }, 600);
+  setTimeout(() => { window.location.href = routeTo("login"); }, 600);
 }
 
 
@@ -217,6 +217,8 @@ function togglePasswordVisibility(inputId, toggleBtnId) {
 ════════════════════════════════════════ */
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Only run login-page setup on index.html (not dashboard)
+  if (!document.getElementById("login-form")) return;
 
   UI.page.init({ requireAuth: false });
 

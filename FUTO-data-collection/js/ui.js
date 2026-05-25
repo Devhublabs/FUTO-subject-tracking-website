@@ -811,7 +811,8 @@ const UI = {
       // Auth guard
       if (requireAuth && typeof apiIsLoggedIn === "function") {
         if (!apiIsLoggedIn()) {
-          window.location.href = "/index.html";
+          window.location.href =
+            typeof routeTo === "function" ? routeTo("login") : "index.html";
           return;
         }
       }
@@ -819,7 +820,8 @@ const UI = {
       // If on auth page and already logged in, go to dashboard
       if (!requireAuth && typeof apiIsLoggedIn === "function") {
         if (apiIsLoggedIn()) {
-          window.location.href = "/pages/dashboard.html";
+          window.location.href =
+            typeof routeTo === "function" ? routeTo("dashboard") : "dashboard.html";
           return;
         }
       }

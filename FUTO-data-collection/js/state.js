@@ -410,7 +410,8 @@ function resetState() {
 
   clearUploadSession();
 
-  // Clear persisted user data
+  // Clear persisted user data and session token
   localStorage.removeItem("futo_user_name");
   localStorage.removeItem("futo_user_tier");
+  localStorage.removeItem("futo_auth_token");
 }

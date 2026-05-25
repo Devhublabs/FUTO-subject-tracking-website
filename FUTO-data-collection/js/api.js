@@ -79,7 +79,7 @@ async function request(endpoint, method = "GET", body = null, isFormData = false
     // Token expired or invalid — force logout
     if (response.status === 401) {
       localStorage.removeItem(TOKEN_KEY);
-      window.location.href = "/index.html";
+      window.location.href = typeof routeTo === "function" ? routeTo("login") : "index.html";
       return { data: null, error: "Session expired. Please log in again.", status: 401 };
     }
 

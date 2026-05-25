@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="../css/variables.css">
   <link rel="stylesheet" href="../css/components.css">
   <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/responsive.css">
 </head>
 <body>
 
@@ -23,15 +24,15 @@
     <header class="header">
       <div class="header-inner">
 
-        <div class="header-brand">
+        <a class="header-brand" href="dashboard.html">
           <div class="header-logo">📊</div>
           <span class="header-wordmark">FUTO <span>Data</span></span>
-        </div>
+        </a>
 
         <div class="header-actions">
           <div class="avatar avatar-md">DO</div>
           <div class="tier-badge silver">⭐ Tier 1</div>
-          <button class="btn btn-ghost btn-sm btn-icon">⚙️</button>
+          <button type="button" class="btn btn-ghost btn-sm btn-icon" id="btn-logout" title="Log out" aria-label="Log out">⚙️</button>
         </div>
 
       </div>
@@ -429,6 +430,11 @@
 
   <div class="toast-container" id="toast-container"></div>
 
+  <script src="../js/routes.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/auth.js"></script>
   <script src="../js/dashboard.js"></script>
 </body>
 </html>

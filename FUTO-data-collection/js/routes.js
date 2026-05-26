@@ -3,6 +3,7 @@
 const ROUTES = {
   login: "index.html",
   dashboard: "dashboard.html",
+  upload: "upload.html",
 };
 
 function routeTo(page) {
@@ -18,4 +19,9 @@ function isLoginPage() {
 /** True when the current document is the dashboard */
 function isDashboardPage() {
   return !!document.querySelector(".books-grid");
+}
+
+/** True when the current document is the upload flow */
+function isUploadPage() {
+  return !!document.getElementById("upload-wizard");
 }

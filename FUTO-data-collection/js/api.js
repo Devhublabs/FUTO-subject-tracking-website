@@ -288,8 +288,13 @@ async function apiGetMissingPages(textbookId) {
  *   quality_passed: boolean,
  *   reason?: string,
  *   detected_page?: number,
+ *   is_duplicate?: boolean,
+ *   needs_page_number?: boolean,
+ *   ocr_failed?: boolean,
+ *   requires_page_number?: boolean,
  *   amount_earned?: number,
  *   new_balance?: number,
+ *   daily_quota_remaining?: number,
  *   textbook_progress?: {
  *     uploaded_count: number,
  *     total_pages: number,

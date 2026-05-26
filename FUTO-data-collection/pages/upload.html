@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Page — FUTO Data Collection</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="bg-blob-2"></div>
+
+  <main class="auth-page" role="main">
+    <div class="auth-card" id="upload-wizard">
+
+      <div class="card-header">
+        <a href="dashboard.html" class="btn btn-ghost btn-sm" id="btn-back" aria-label="Back to dashboard">← Back</a>
+        <div class="modal-steps" id="upload-step-dots" aria-hidden="true">
+          <span class="step-dot active" data-dot="1"></span>
+          <span class="step-dot" data-dot="2"></span>
+          <span class="step-dot" data-dot="3"></span>
+          <span class="step-dot" data-dot="4"></span>
+        </div>
+      </div>
+
+      <!-- Step 1: Book selection -->
+      <section class="stack" id="step-1" data-step="1">
+        <h2 class="modal-title">Select a textbook</h2>
+        <p class="card-subtitle">Choose the course this page belongs to.</p>
+        <div class="stack" id="upload-book-list">
+          <p class="text-muted">Loading textbooks…</p>
+        </div>
+      </section>
+
+      <!-- Step 2: File input -->
+      <section class="stack hidden" id="step-2" data-step="2">
+        <h2 class="modal-title">Upload page image</h2>
+        <p class="card-subtitle" id="step-2-book-label">Selected course</p>
+
+        <div class="card card-clickable text-center stack" id="upload-dropzone" tabindex="0" role="button" aria-label="Drop image or tap to choose file">
+          <div class="empty-state-icon">📷</div>
+          <p class="card-title">Drag &amp; drop your image here</p>
+          <p class="card-subtitle">or tap to choose a file · JPG, PNG, WebP</p>
+        </div>
+
+        <div class="stack text-center hidden" id="upload-preview-wrap">
+          <img id="upload-preview" alt="Selected page preview" style="max-width:100%;border-radius:var(--radius-md);">
+          <button type="button" class="btn btn-ghost btn-sm" id="btn-change-file">Choose a different image</button>
+        </div>
+
+        <input type="file" id="upload-file-input" accept="image/jpeg,image/png,image/webp" capture="environment" hidden>
+      </section>
+
+      <!-- Step 3: Processing -->
+      <section class="stack text-center hidden" id="step-3" data-step="3">
+        <h2 class="modal-title">Processing your image</h2>
+        <p class="card-subtitle">Please wait while we check your upload.</p>
+        <div class="loader-ring"></div>
+        <p class="loader-text" id="upload-processing-status">Checking brightness…</p>
+        <div class="stack-sm" id="upload-processing-checklist">
+          <p class="text-primary" data-check="brightness">Checking brightness…</p>
+          <p class="text-muted" data-check="blur">Detecting blur…</p>
+          <p class="text-muted" data-check="text">Reading text…</p>
+        </div>
+      </section>
+
+      <!-- Step 4a: Manual page number -->
+      <section class="stack hidden" id="step-4a" data-step="4a">
+        <h2 class="modal-title">Enter page number</h2>
+        <p class="card-subtitle">We couldn't detect the page number automatically. Please enter it below.</p>
+        <div class="input-wrap">
+          <label class="input-label" for="upload-manual-page">Page number</label>
+          <input class="input" type="number" id="upload-manual-page" min="1" placeholder="e.g. 101" required>
+        </div>
+        <button type="button" class="btn btn-primary btn-full" id="btn-submit-page">Continue</button>
+      </section>
+
+      <!-- Step 4b: Result -->
+      <section class="stack hidden" id="step-4b" data-step="4b">
+        <div class="empty-state" id="upload-result">
+          <div class="empty-state-icon" id="upload-result-icon">✅</div>
+          <h2 class="empty-state-title" id="upload-result-title">Page Accepted</h2>
+          <p class="empty-state-desc" id="upload-result-message">Your upload passed quality checks.</p>
+          <p class="card-subtitle" id="upload-result-detail"></p>
+        </div>
+        <div class="stack-sm">
+          <button type="button" class="btn btn-primary btn-full" id="btn-upload-another">Upload another page</button>
+          <a href="dashboard.html" class="btn btn-ghost btn-full" id="btn-back-dashboard">Back to dashboard</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="../js/routes.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/upload.js"></script>
+</body>
+</html>

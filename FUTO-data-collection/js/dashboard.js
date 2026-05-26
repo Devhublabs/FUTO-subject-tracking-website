@@ -1,21 +1,12 @@
-function openUploadModal(bookId, bookName) {
-  setUploadSession({ selectedBookId: bookId, selectedBookName: bookName });
-
-  const subtitle = document.getElementById("upload-modal-subtitle");
-  if (subtitle) subtitle.textContent = bookName;
-
-  // Pre-select the course in the dropdown
-  const select = document.getElementById("upload-course-select");
-  if (select) select.value = String(bookId);
-
-  UI.modal.open("upload-modal-backdrop");
+function openUploadModal(bookId) {
+  window.location.href = `upload.html?book=${bookId}`;
 }
 
 
 document.addEventListener("DOMContentLoaded", async () => {
 
   // ── 1. Auth guard + fast header hydration ──
-  UI.page.init({ requireAuth: true });
+  // UI.page.init({ requireAuth: true });
 
 
   // ── 2. Load user profile ──
@@ -76,17 +67,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   renderBookCards();
 
 
-  // ── 7. Populate upload modal course dropdown ──
-  populateCourseDropdown();
-
-
-  // ── 8. FAB logic ──
+  // ── 7. FAB → upload page ──
   const fab = document.getElementById("fab-upload");
   if (canUploadToday()) {
     fab.disabled = false;
     fab.classList.remove("disabled");
     fab.title = "Upload an image";
-    fab.addEventListener("click", () => UI.modal.open("upload-modal-backdrop"));
+    fab.addEventListener("click", () => {
+      window.location.href = routeTo("upload");
+    });
   } else {
     fab.disabled = true;
     fab.classList.add("disabled");
@@ -94,92 +83,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
 
-  // ── 9. Upload modal wiring ──
-  document.getElementById("upload-modal-close")?.addEventListener("click", () => {
-    UI.modal.close("upload-modal-backdrop");
-  });
-  document.getElementById("upload-cancel")?.addEventListener("click", () => {
-    UI.modal.close("upload-modal-backdrop");
-  });
-
-  // File picker
-  const fileInput   = document.getElementById("upload-file");
-  const pickFileBtn = document.getElementById("upload-pick-file");
-  const preview     = document.getElementById("upload-preview");
-  const previewWrap = document.getElementById("upload-preview-wrap");
-  const submitBtn   = document.getElementById("upload-submit");
-
-  pickFileBtn?.addEventListener("click", () => fileInput.click());
-
-  fileInput?.addEventListener("change", () => {
-    const file = fileInput.files[0];
-    if (!file) return;
-
-    setUploadSession({ imageFile: file });
-
-    // Show preview
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      preview.src = e.target.result;
-      previewWrap.classList.remove("hidden");
-    };
-    reader.readAsDataURL(file);
-
-    // Enable submit
-    submitBtn.disabled = false;
-  });
-
-  // Submit upload
-  submitBtn?.addEventListener("click", async () => {
-    const { imageFile, selectedBookId } = AppState.upload;
-    const pageNumber = document.getElementById("upload-page-number")?.value || null;
-
-    if (!imageFile || !selectedBookId) {
-      UI.toast.error("Please select a course and an image.");
-      return;
-    }
-
-    UI.loader.show("upload-loader");
-    UI.modal.close("upload-modal-backdrop");
-
-    const { data: uploadResult, error: uploadError } = await apiUploadImage(
-      imageFile,
-      selectedBookId,
-      pageNumber ? parseInt(pageNumber) : null
-    );
-
-    UI.loader.hide("upload-loader");
-
-    if (uploadError) {
-      UI.toast.error(uploadError);
-      return;
-    }
-
-    if (uploadResult.quality_passed) {
-      UI.toast.success(`✅ Page accepted! You earned ${formatNaira(uploadResult.amount_earned)}`);
-      setBalanceAndQuota(uploadResult.new_balance, AppState.user.dailyQuotaRemaining - 1);
-
-      if (uploadResult.textbook_progress) {
-        updateTextbookProgress(selectedBookId, uploadResult.textbook_progress);
-        renderBookCards(); // re-render cards with updated progress
-      }
-
-      // Refresh stats
-      document.getElementById("stat-balance").textContent     = formatNaira(AppState.user.balance);
-      document.getElementById("stat-quota").textContent       = AppState.user.dailyQuotaRemaining;
-      document.getElementById("stat-to-withdraw").textContent = formatNaira(amountNeededToWithdraw());
-    } else {
-      UI.toast.error(`❌ Page rejected: ${uploadResult.reason || "Quality check failed."}`);
-    }
-
-    clearUploadSession();
-    fileInput.value = "";
-    previewWrap.classList.add("hidden");
-    submitBtn.disabled = true;
-  });
-
-
-  // ── 10. Tier toggle ──
+  // ── 8. Tier toggle ──
   const toggle      = document.getElementById("tier-toggle");
   const tierContent = document.getElementById("tier-content");
 
@@ -191,12 +95,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
 
-  // ── 11. Logout ──
+  // ── 9. Logout ──
   document.getElementById("btn-logout")?.addEventListener("click", () => {
     handleLogout();
   });
 
-  // ── 12. Settings ──
+  // ── 10. Settings ──
   document.getElementById("btn-settings")?.addEventListener("click", () => {
     window.location.href = "settings.html";
   });
@@ -243,26 +147,9 @@ function renderBookCards() {
       </div>
 
       <div class="book-card-actions">
-        <button class="btn btn-primary btn-sm" onclick="openUploadModal(${book.id}, '${book.name}')">Upload</button>
+        <button class="btn btn-primary btn-sm" onclick="openUploadModal(${book.id})">Upload</button>
         <button class="btn btn-ghost btn-sm" onclick="window.location.href='missing-pages.html?book=${book.id}'">View Missing</button>
       </div>
     </div>
   `).join("");
-}
-
-
-/* ════════════════════════════════════════
-   POPULATE COURSE DROPDOWN
-   Fills the upload modal select element
-   with all available textbooks
-════════════════════════════════════════ */
-
-function populateCourseDropdown() {
-  const select = document.getElementById("upload-course-select");
-  if (!select) return;
-
-  select.innerHTML = `<option value="">— Select a course —</option>` +
-    AppState.textbooks.map((book) =>
-      `<option value="${book.id}">${book.name}</option>`
-    ).join("");
 }

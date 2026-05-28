@@ -4,6 +4,9 @@ const ROUTES = {
   login: "index.html",
   dashboard: "dashboard.html",
   upload: "upload.html",
+  missingPages: "missing-pages.html",
+  settings: "settings.html",
+  withdrawal: "withdrawal.html",
 };
 
 function routeTo(page) {

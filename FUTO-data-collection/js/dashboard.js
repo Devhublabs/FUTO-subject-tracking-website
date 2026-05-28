@@ -1,12 +1,14 @@
 function openUploadModal(bookId) {
-  window.location.href = `upload.html?book=${bookId}`;
+  const uploadUrl = new URL(routeTo("upload"));
+  uploadUrl.searchParams.set("book", bookId);
+  window.location.href = uploadUrl.href;
 }
 
 
 document.addEventListener("DOMContentLoaded", async () => {
 
   // ── 1. Auth guard + fast header hydration ──
-  // UI.page.init({ requireAuth: true });
+  UI.page.init({ requireAuth: true });
 
 
   // ── 2. Load user profile ──
@@ -30,6 +32,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("stat-quota-sub").textContent    = `of ${AppState.user.dailyQuotaLimit} remaining today`;
   document.getElementById("stat-balance").textContent      = formatNaira(AppState.user.balance);
   document.getElementById("stat-to-withdraw").textContent  = formatNaira(amountNeededToWithdraw());
+
+  const withdrawBtn = document.getElementById("btn-dashboard-withdraw");
+  if (withdrawBtn) {
+    withdrawBtn.textContent = canWithdraw() ? "Withdraw" : "View Progress";
+    withdrawBtn.addEventListener("click", () => {
+      window.location.href = routeTo("withdrawal");
+    });
+  }
 
 
   // ── 5. Populate tier progression panel ──
@@ -102,7 +112,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // ── 10. Settings ──
   document.getElementById("btn-settings")?.addEventListener("click", () => {
-    window.location.href = "settings.html";
+    window.location.href = routeTo("settings");
   });
 
 });
@@ -127,12 +137,12 @@ function renderBookCards() {
   }
 
   grid.innerHTML = AppState.textbooks.map((book) => `
-    <div class="book-card">
+    <div class="book-card" data-book-id="${escapeHTML(book.id)}">
       <div class="book-card-header">
         <div class="book-icon">📚</div>
         <div class="book-info">
-          <div class="book-title">${book.name}</div>
-          <div class="book-meta">${book.uploaded_count} / ${book.total_pages} pages</div>
+          <div class="book-title">${escapeHTML(book.name)}</div>
+          <div class="book-meta">${escapeHTML(book.uploaded_count)} / ${escapeHTML(book.total_pages)} pages</div>
         </div>
       </div>
 
@@ -147,9 +157,30 @@ function renderBookCards() {
       </div>
 
       <div class="book-card-actions">
-        <button class="btn btn-primary btn-sm" onclick="openUploadModal(${book.id})">Upload</button>
-        <button class="btn btn-ghost btn-sm" onclick="window.location.href='missing-pages.html?book=${book.id}'">View Missing</button>
+        <button class="btn btn-primary btn-sm" data-action="upload">Upload</button>
+        <button class="btn btn-ghost btn-sm" data-action="missing">View Missing</button>
       </div>
     </div>
   `).join("");
+
+  grid.querySelectorAll(".book-card").forEach((card) => {
+    const bookId = card.dataset.bookId;
+    card.querySelector('[data-action="upload"]')?.addEventListener("click", () => {
+      openUploadModal(bookId);
+    });
+    card.querySelector('[data-action="missing"]')?.addEventListener("click", () => {
+      const missingUrl = new URL(routeTo("missingPages"));
+      missingUrl.searchParams.set("book", bookId);
+      window.location.href = missingUrl.href;
+    });
+  });
+}
+
+function escapeHTML(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }

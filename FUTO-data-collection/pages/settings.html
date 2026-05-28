@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings — FUTO Data Collection</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="bg-blob-2"></div>
+
+  <div class="app-wrapper">
+    <header class="header">
+      <div class="header-inner">
+
+        <a class="header-brand" href="dashboard.html">
+          <div class="header-logo">📊</div>
+          <span class="header-wordmark">FUTO <span>Data</span></span>
+        </a>
+
+        <div class="header-actions">
+          <div class="avatar avatar-md" id="header-avatar">DO</div>
+          <div class="tier-badge silver" id="header-tier">⭐ Tier 1</div>
+          <button type="button" class="btn btn-ghost btn-sm btn-icon" id="btn-logout" title="Log out" aria-label="Log out">🚪</button>
+        </div>
+
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+        <div class="page-header stack">
+          <a href="dashboard.html" class="btn btn-ghost btn-sm" aria-label="Back to dashboard">← Back</a>
+          <h1 class="page-title">Settings</h1>
+          <p class="page-desc" id="settings-desc">Manage your profile and withdrawal payment methods.</p>
+        </div>
+
+        <section class="grid-2">
+          <div class="card stack">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Profile</div>
+                <div class="card-subtitle">Update your account details</div>
+              </div>
+            </div>
+
+            <form class="stack" id="settings-profile-form">
+              <div class="input-wrap">
+                <label class="input-label" for="settings-name">Name</label>
+                <input class="input" type="text" id="settings-name" name="name" placeholder="Your name" required>
+              </div>
+
+              <div class="input-wrap">
+                <label class="input-label" for="settings-phone">Phone</label>
+                <input class="input" type="tel" id="settings-phone" name="phone" placeholder="08012345678">
+              </div>
+
+              <div class="input-wrap">
+                <label class="input-label" for="settings-email">Email</label>
+                <input class="input" type="email" id="settings-email" name="email" disabled>
+                <span class="input-hint">Email cannot be edited here.</span>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-full" id="btn-save-profile">Save Changes</button>
+            </form>
+          </div>
+
+          <div class="card stack">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Payment Methods</div>
+                <div class="card-subtitle">Saved accounts for withdrawals</div>
+              </div>
+              <button type="button" class="btn btn-ghost btn-sm" id="btn-refresh-methods">Refresh</button>
+            </div>
+
+            <div class="stack" id="payment-methods-list">
+              <div class="empty-state">
+                <div class="loader-ring"></div>
+                <p class="text-muted">Loading payment methods...</p>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <form class="stack" id="payment-method-form">
+              <div class="input-wrap">
+                <label class="input-label" for="payment-method-type">Add Payment Method</label>
+                <select class="input" id="payment-method-type" name="type">
+                  <option value="opay">Opay</option>
+                  <option value="bank_transfer">Bank Transfer</option>
+                </select>
+              </div>
+
+              <div class="stack" id="opay-method-fields">
+                <div class="input-wrap">
+                  <label class="input-label" for="settings-opay-account">Opay Phone or Account Number</label>
+                  <input class="input" type="text" id="settings-opay-account" name="opay_account" inputmode="numeric" placeholder="08012345678">
+                </div>
+                <div class="input-wrap">
+                  <label class="input-label" for="settings-opay-name">Account Name</label>
+                  <input class="input" type="text" id="settings-opay-name" name="opay_name" placeholder="Your Opay account name">
+                </div>
+              </div>
+
+              <div class="stack hidden" id="bank-method-fields">
+                <div class="input-wrap">
+                  <label class="input-label" for="settings-bank-name">Bank Name</label>
+                  <input class="input" type="text" id="settings-bank-name" name="bank_name" placeholder="e.g. Access Bank">
+                </div>
+                <div class="input-wrap">
+                  <label class="input-label" for="settings-bank-account">Account Number</label>
+                  <input class="input" type="text" id="settings-bank-account" name="bank_account" inputmode="numeric" maxlength="10" placeholder="0123456789">
+                </div>
+                <div class="input-wrap">
+                  <label class="input-label" for="settings-bank-account-name">Account Name</label>
+                  <input class="input" type="text" id="settings-bank-account-name" name="bank_account_name" placeholder="Your bank account name">
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-full" id="btn-add-payment-method">Save Payment Method</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="card stack" style="margin-top: var(--space-6);">
+          <div class="row-between">
+            <div>
+              <div class="card-title">Session</div>
+              <div class="card-subtitle">Sign out of this device</div>
+            </div>
+            <button type="button" class="btn btn-danger" id="btn-settings-logout">Log Out</button>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="../js/routes.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/settings.js"></script>
+</body>
+</html>

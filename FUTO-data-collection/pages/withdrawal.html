@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Withdrawals — FUTO Data Collection</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="bg-blob-2"></div>
+
+  <div class="app-wrapper">
+    <header class="header">
+      <div class="header-inner">
+
+        <a class="header-brand" href="dashboard.html">
+          <div class="header-logo">📊</div>
+          <span class="header-wordmark">FUTO <span>Data</span></span>
+        </a>
+
+        <div class="header-actions">
+          <div class="avatar avatar-md" id="header-avatar">DO</div>
+          <div class="tier-badge silver" id="header-tier">⭐ Tier 1</div>
+          <button type="button" class="btn btn-ghost btn-sm btn-icon" id="btn-settings" title="Settings" aria-label="Settings">⚙️</button>
+          <button type="button" class="btn btn-ghost btn-sm btn-icon" id="btn-logout" title="Log out" aria-label="Log out">🚪</button>
+        </div>
+
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+
+        <div class="page-header stack">
+          <a href="dashboard.html" class="btn btn-ghost btn-sm" aria-label="Back to dashboard">← Back</a>
+          <h1 class="page-title">Withdrawals</h1>
+          <p class="page-desc" id="withdrawal-page-desc">Loading your withdrawal balance...</p>
+        </div>
+
+        <section class="grid-2">
+          <div class="card card-lg stack-lg">
+            <div class="row-between">
+              <div>
+                <span class="stat-label">Available Balance</span>
+                <div class="stat-value" id="withdrawal-balance">—</div>
+                <p class="card-subtitle" id="withdrawal-status">Checking eligibility...</p>
+              </div>
+              <span class="badge badge-muted" id="withdrawal-badge">Min ₦1,000</span>
+            </div>
+
+            <div class="progress-wrap" id="withdrawal-progress-wrap">
+              <div class="progress-header">
+                <span class="progress-label">Progress to minimum withdrawal</span>
+                <span class="progress-value" id="withdrawal-progress-value">0%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" id="withdrawal-progress-fill" style="width: 0%;"></div>
+              </div>
+              <p class="text-muted" style="font-size: var(--text-sm);" id="withdrawal-progress-desc">
+                Earn more from accepted uploads to reach the minimum withdrawal amount.
+              </p>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-lg btn-full" id="btn-withdraw" disabled>
+              Loading...
+            </button>
+          </div>
+
+          <div class="card stack">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Withdrawal History</div>
+                <div class="card-subtitle">Your recent payout requests</div>
+              </div>
+              <button type="button" class="btn btn-ghost btn-sm" id="btn-refresh-history">Refresh</button>
+            </div>
+            <div class="stack" id="withdrawal-history">
+              <div class="empty-state">
+                <div class="loader-ring"></div>
+                <p class="text-muted">Loading history...</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="withdrawal-modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="withdrawal-modal-title">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title" id="withdrawal-modal-title">Request Withdrawal</h2>
+          <p class="card-subtitle" id="withdrawal-modal-subtitle">Choose how much to withdraw and where to send it.</p>
+        </div>
+        <button type="button" class="modal-close" id="btn-close-withdrawal-modal" aria-label="Close modal">×</button>
+      </div>
+
+      <form class="stack" id="withdrawal-form">
+        <div class="input-wrap">
+          <label class="input-label" for="withdrawal-amount">Amount</label>
+          <input class="input" type="number" id="withdrawal-amount" name="amount" min="1000" step="100" placeholder="1000" required>
+          <span class="input-hint">Minimum ₦1,000</span>
+        </div>
+
+        <div class="input-wrap">
+          <span class="input-label">Payment Method</span>
+          <div class="grid-2">
+            <label class="card card-sm card-clickable row">
+              <input type="radio" name="payment_method" value="opay" checked>
+              <span>💳</span>
+              <span>
+                <span class="font-bold">Opay</span>
+                <span class="input-hint block">Send to Opay account</span>
+              </span>
+            </label>
+            <label class="card card-sm card-clickable row">
+              <input type="radio" name="payment_method" value="bank_transfer">
+              <span>🏦</span>
+              <span>
+                <span class="font-bold">Bank Transfer</span>
+                <span class="input-hint block">Send to bank account</span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="stack" id="opay-fields">
+          <div class="input-wrap">
+            <label class="input-label" for="opay-account">Opay Phone or Account Number</label>
+            <input class="input" type="text" id="opay-account" name="opay_account" inputmode="numeric" placeholder="08012345678">
+          </div>
+          <div class="input-wrap">
+            <label class="input-label" for="opay-name">Account Name</label>
+            <input class="input" type="text" id="opay-name" name="opay_name" placeholder="Your Opay account name">
+          </div>
+        </div>
+
+        <div class="stack hidden" id="bank-fields">
+          <div class="input-wrap">
+            <label class="input-label" for="bank-name">Bank Name</label>
+            <input class="input" type="text" id="bank-name" name="bank_name" placeholder="e.g. Access Bank">
+          </div>
+          <div class="input-wrap">
+            <label class="input-label" for="bank-account">Account Number</label>
+            <input class="input" type="text" id="bank-account" name="bank_account" inputmode="numeric" maxlength="10" placeholder="0123456789">
+          </div>
+          <div class="input-wrap">
+            <label class="input-label" for="bank-account-name">Account Name</label>
+            <input class="input" type="text" id="bank-account-name" name="bank_account_name" placeholder="Your bank account name">
+          </div>
+        </div>
+
+        <div class="card card-sm row-between" id="withdrawal-summary">
+          <span>Amount</span>
+          <strong class="text-primary" id="withdrawal-summary-amount">₦0</strong>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" id="btn-cancel-withdrawal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-confirm-withdrawal">Confirm Withdrawal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="../js/routes.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/withdrawal.js"></script>
+</body>
+</html>

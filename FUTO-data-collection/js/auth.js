@@ -104,6 +104,35 @@ async function handleLogin() {
   setTimeout(() => { window.location.href = routeTo("dashboard"); }, 800);
 }
 
+async function handleForgotPassword(event) {
+  event.preventDefault();
+
+  UI.form.clearError("login-email");
+
+  const emailInput = document.getElementById("login-email");
+  const email = emailInput?.value.trim();
+
+  if (!email) {
+    UI.form.setError("login-email", "Enter your email address first.");
+    emailInput?.focus();
+    return;
+  }
+
+  if (!UI.form.isValidEmail(email)) {
+    UI.form.setError("login-email", "Please enter a valid email address.");
+    emailInput?.focus();
+    return;
+  }
+
+  const { error } = await apiForgotPassword(email);
+  if (error) {
+    UI.toast.error(error);
+    return;
+  }
+
+  UI.toast.success("Password reset email sent.");
+}
+
 
 /* ════════════════════════════════════════
    03. REGISTER FLOW
@@ -233,6 +262,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("login-password")?.addEventListener("keydown", (e) => {
     if (e.key === "Enter") handleLogin();
   });
+
+  document.getElementById("forgot-password-link")?.addEventListener("click", handleForgotPassword);
 
   const registerSubmit = document.getElementById("register-submit");
   if (registerSubmit) registerSubmit.addEventListener("click", handleRegister);

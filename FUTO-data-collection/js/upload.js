@@ -23,18 +23,18 @@ const PROCESSING_MESSAGES = [
 document.addEventListener("DOMContentLoaded", async () => {
   UI.page.init({ requireAuth: true });
 
-  if (!canUploadToday()) {
-    UI.toast.warning("Daily upload quota reached. Come back tomorrow.");
-    window.location.href = routeTo("dashboard");
-    return;
-  }
-
   const { data: profileData, error: profileError } = await apiGetProfile();
   if (profileError) {
     UI.toast.error(profileError);
     return;
   }
   setUser(profileData);
+
+  if (!canUploadToday()) {
+    UI.toast.warning("Daily upload quota reached. Come back tomorrow.");
+    window.location.href = routeTo("dashboard");
+    return;
+  }
 
   const { data: textbooksData, error: textbooksError } = await apiGetTextbooks();
   if (textbooksError) {
@@ -44,10 +44,22 @@ document.addEventListener("DOMContentLoaded", async () => {
   setTextbooks(textbooksData);
   renderBookList();
 
-  const preselectedBook = new URLSearchParams(window.location.search).get("book");
+  const params = new URLSearchParams(window.location.search);
+  const preselectedBook = params.get("book");
+  const preselectedPage = parseInt(params.get("page"), 10);
+
   if (preselectedBook) {
     const book = getTextbookById(preselectedBook);
-    if (book) selectBook(book.id, book.name);
+    if (book) {
+      if (preselectedPage > 0) {
+        setUploadSession({ manualPage: preselectedPage });
+      }
+      selectBook(book.id, book.name);
+      if (preselectedPage > 0) {
+        const pageInput = document.getElementById("upload-manual-page");
+        if (pageInput) pageInput.value = String(preselectedPage);
+      }
+    }
   }
 
   wireFileInput();
@@ -72,8 +84,15 @@ function goToStep(step) {
   if (step === 2) {
     const label = document.getElementById("step-2-book-label");
     if (label && AppState.upload.selectedBookName) {
-      label.textContent = AppState.upload.selectedBookName;
+      label.textContent = AppState.upload.manualPage
+        ? `${AppState.upload.selectedBookName} · Page ${AppState.upload.manualPage}`
+        : AppState.upload.selectedBookName;
     }
+  }
+
+  if (step === "4a" && AppState.upload.manualPage) {
+    const pageInput = document.getElementById("upload-manual-page");
+    if (pageInput) pageInput.value = String(AppState.upload.manualPage);
   }
 }
 
@@ -218,7 +237,7 @@ function handleFileSelected(file) {
   };
   reader.readAsDataURL(file);
 
-  processUpload(file, null);
+  processUpload(file, AppState.upload.manualPage || null);
 }
 
 
@@ -270,7 +289,7 @@ function startProcessingAnimation() {
 
 function updateChecklistItems(checklist, activeIndex) {
   checklist?.querySelectorAll("p").forEach((item, i) => {
-    item.className = i < activeIndex ? "text-dim" : i === activeIndex ? "text-primary" : "text-muted";
+    item.className = i < activeIndex ? "text-muted" : i === activeIndex ? "text-primary" : "text-muted";
   });
 }
 
@@ -282,7 +301,7 @@ function stopProcessingAnimation() {
 
   const checklist = document.getElementById("upload-processing-checklist");
   checklist?.querySelectorAll("p").forEach((item) => {
-    item.className = "text-dim";
+    item.className = "text-muted";
   });
 }
 

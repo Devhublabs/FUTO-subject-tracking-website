@@ -219,6 +219,20 @@ async function apiGetProfile() {
 }
 
 /**
+ * Update editable profile details for the logged-in user.
+ *
+ * @param {string} name
+ * @param {string} phone
+ * @returns {Promise<{data: {name, phone}|null, error: string|null}>}
+ */
+async function apiUpdateProfile(name, phone) {
+  return await request("/api/user/profile", "PUT", {
+    name,
+    phone,
+  });
+}
+
+/**
  * Get the current balance and minimum withdrawal amount.
  *
  * @returns {Promise<{data: {balance, minimum_to_withdraw}|null, error: string|null}>}

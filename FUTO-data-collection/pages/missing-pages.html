@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Missing Pages — FUTO Data Collection</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="bg-blob-2"></div>
+
+  <div class="app-wrapper">
+    <header class="header">
+      <div class="header-inner">
+
+        <a class="header-brand" href="dashboard.html">
+          <div class="header-logo">📊</div>
+          <span class="header-wordmark">FUTO <span>Data</span></span>
+        </a>
+
+        <div class="header-actions">
+          <div class="avatar avatar-md" id="header-avatar">DO</div>
+          <div class="tier-badge silver" id="header-tier">⭐ Tier 1</div>
+          <button type="button" class="btn btn-ghost btn-sm btn-icon" id="btn-settings" title="Settings" aria-label="Settings">⚙️</button>
+          <button type="button" class="btn btn-ghost btn-sm btn-icon" id="btn-logout" title="Log out" aria-label="Log out">🚪</button>
+        </div>
+
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+        <div class="page-header stack">
+          <a href="dashboard.html" class="btn btn-ghost btn-sm" aria-label="Back to dashboard">← Back</a>
+          <h1 class="page-title">Missing Pages</h1>
+          <p class="page-desc" id="missing-pages-desc">Loading missing pages...</p>
+        </div>
+
+        <section class="card stack">
+          <div class="card-header">
+            <div>
+              <div class="card-title" id="missing-pages-title">Textbook Pages</div>
+              <div class="card-subtitle" id="missing-pages-count">Checking for missing pages</div>
+            </div>
+            <button type="button" class="btn btn-ghost btn-sm" id="btn-refresh-missing">Refresh</button>
+          </div>
+
+          <div class="grid-3" id="missing-pages-list">
+            <div class="empty-state">
+              <div class="loader-ring"></div>
+              <p class="text-muted">Loading missing pages...</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="../js/routes.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/missing-pages.js"></script>
+</body>
+</html>
